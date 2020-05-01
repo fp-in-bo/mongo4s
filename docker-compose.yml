@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:3.6
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: test
+    volumes:
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27017:27017

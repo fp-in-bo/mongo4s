@@ -1,13 +1,11 @@
 val catsV = "2.0.0"
 val catsEffectV = "2.0.0"
-val shapelessV = "2.3.3"
 val fs2V = "2.0.0"
-val http4sV = "0.21.0-M6"
-val circeV = "0.12.3"
-val doobieV = "0.8.8"
 val log4catsV = "1.0.1"
+val log4jSlf4jImplV = "2.13.2"
 val specs2V = "4.8.1"
 val catsEffectScalaTestV = "0.4.0"
+val mongoDbReactiveDriverV = "4.0.2"
 
 val kindProjectorV = "0.11.0"
 val betterMonadicForV = "0.3.1"
@@ -99,7 +97,10 @@ lazy val commonSettings = Seq(
     "org.typelevel" %% "cats-effect" % catsEffectV,
     "co.fs2" %% "fs2-core" % fs2V,
     "co.fs2" %% "fs2-io" % fs2V,
-    "org.mongodb" % "mongo-java-driver" % "3.12.3",
+    "co.fs2" %% "fs2-reactive-streams" % fs2V,
+    "org.mongodb" % "mongodb-driver-reactivestreams" % mongoDbReactiveDriverV,
+    "io.chrisdavenport" %% "log4cats-slf4j" % log4catsV,
+    "org.apache.logging.log4j" % "log4j-slf4j-impl" % log4jSlf4jImplV % Runtime,
     "com.codecommit" %% "cats-effect-testing-scalatest" % catsEffectScalaTestV % Test
   )
 )
