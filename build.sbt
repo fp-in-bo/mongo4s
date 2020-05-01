@@ -1,5 +1,3 @@
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
-
 val catsV = "2.0.0"
 val catsEffectV = "2.0.0"
 val shapelessV = "2.3.3"
@@ -9,30 +7,32 @@ val circeV = "0.12.3"
 val doobieV = "0.8.8"
 val log4catsV = "1.0.1"
 val specs2V = "4.8.1"
+val catsEffectScalaTestV = "0.4.0"
 
 val kindProjectorV = "0.11.0"
 val betterMonadicForV = "0.3.1"
 
 // Projects
-lazy val `mongo4s` = project.in(file("."))
+lazy val `mongo4s` = project
+  .in(file("."))
   .disablePlugins(MimaPlugin)
   .enablePlugins(NoPublishPlugin)
   .aggregate(core)
 
-lazy val core = project.in(file("core"))
+lazy val core = project
+  .in(file("core"))
   .settings(commonSettings)
-  .settings(
-    name := "mongo4s"
-  )
+  .settings(name := "mongo4s")
 
-lazy val site = project.in(file("site"))
+lazy val site = project
+  .in(file("site"))
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(MdocPlugin)
   .enablePlugins(NoPublishPlugin)
   .settings(commonSettings)
   .dependsOn(core)
-  .settings{
+  .settings {
     import microsites._
     Seq(
       micrositeName := "mongo4s",
@@ -67,8 +67,20 @@ lazy val site = project.in(file("site"))
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
       micrositeExtraMdFiles := Map(
-          file("CODE_OF_CONDUCT.md")  -> ExtraMdFileConfig("code-of-conduct.md",   "page", Map("title" -> "code of conduct",   "section" -> "code of conduct",   "position" -> "100")),
-          file("LICENSE")             -> ExtraMdFileConfig("license.md",   "page", Map("title" -> "license",   "section" -> "license",   "position" -> "101"))
+        file("CODE_OF_CONDUCT.md") -> ExtraMdFileConfig(
+          "code-of-conduct.md",
+          "page",
+          Map(
+            "title" -> "code of conduct",
+            "section" -> "code of conduct",
+            "position" -> "100"
+          )
+        ),
+        file("LICENSE") -> ExtraMdFileConfig(
+          "license.md",
+          "page",
+          Map("title" -> "license", "section" -> "license", "position" -> "101")
+        )
       )
     )
   }
@@ -77,59 +89,44 @@ lazy val site = project.in(file("site"))
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.1",
   crossScalaVersions := Seq(scalaVersion.value, "2.12.10"),
-
-  addCompilerPlugin("org.typelevel" %% "kind-projector" % kindProjectorV cross CrossVersion.full),
-  addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % betterMonadicForV),
-
+  scalafmtOnCompile := true,
+  addCompilerPlugin(
+    "org.typelevel" %% "kind-projector" % kindProjectorV cross CrossVersion.full
+  ),
+  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForV),
   libraryDependencies ++= Seq(
-    "org.typelevel"               %% "cats-core"                  % catsV,
-    "org.typelevel"               %% "alleycats-core"             % catsV,
-
-    "org.typelevel"               %% "cats-effect"                % catsEffectV,
-
-    "com.chuusai"                 %% "shapeless"                  % shapelessV,
-
-    "co.fs2"                      %% "fs2-core"                   % fs2V,
-    "co.fs2"                      %% "fs2-io"                     % fs2V,
-
-    "org.http4s"                  %% "http4s-dsl"                 % http4sV,
-    "org.http4s"                  %% "http4s-blaze-server"        % http4sV,
-    "org.http4s"                  %% "http4s-blaze-client"        % http4sV,
-    "org.http4s"                  %% "http4s-circe"               % http4sV,
-
-    "io.circe"                    %% "circe-core"                 % circeV,
-    "io.circe"                    %% "circe-generic"              % circeV,
-    "io.circe"                    %% "circe-parser"               % circeV,
-
-    "org.tpolecat"                %% "doobie-core"                % doobieV,
-    "org.tpolecat"                %% "doobie-h2"                  % doobieV,
-    "org.tpolecat"                %% "doobie-hikari"              % doobieV,
-    "org.tpolecat"                %% "doobie-postgres"            % doobieV,
-    "org.tpolecat"                %% "doobie-specs2"              % doobieV       % Test,
-
-    "io.chrisdavenport"           %% "log4cats-core"              % log4catsV,
-    "io.chrisdavenport"           %% "log4cats-slf4j"             % log4catsV,
-    "io.chrisdavenport"           %% "log4cats-testing"           % log4catsV     % Test,
-
-    "org.specs2"                  %% "specs2-core"                % specs2V       % Test,
-    "org.specs2"                  %% "specs2-scalacheck"          % specs2V       % Test
+    "org.typelevel" %% "cats-core" % catsV,
+    "org.typelevel" %% "cats-effect" % catsEffectV,
+    "co.fs2" %% "fs2-core" % fs2V,
+    "co.fs2" %% "fs2-io" % fs2V,
+    "org.mongodb" % "mongo-java-driver" % "3.12.3",
+    "com.codecommit" %% "cats-effect-testing-scalatest" % catsEffectScalaTestV % Test
   )
 )
 
 // General Settings
-inThisBuild(List(
-  organization := "dev.fpinbo",
-  developers := List(
-    Developer("azanin", "Alessandro Zanin", "ale.zanin90@gmail.com", url("https://github.com/azanin"))
-  ),
-
-  homepage := Some(url("https://github.com/azanin/mongo4s")),
-  licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-
-  pomIncludeRepository := { _ => false},
-  scalacOptions in (Compile, doc) ++= Seq(
+inThisBuild(
+  List(
+    organization := "dev.fpinbo",
+    developers := List(
+      Developer(
+        "azanin",
+        "Alessandro Zanin",
+        "ale.zanin90@gmail.com",
+        url("https://github.com/azanin")
+      )
+    ),
+    homepage := Some(url("https://github.com/azanin/mongo4s")),
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
+    pomIncludeRepository := { _ =>
+      false
+    },
+    scalacOptions in (Compile, doc) ++= Seq(
       "-groups",
-      "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
-      "-doc-source-url", "https://github.com/azanin/mongo4s/blob/v" + version.value + "€{FILE_PATH}.scala"
+      "-sourcepath",
+      (baseDirectory in LocalRootProject).value.getAbsolutePath,
+      "-doc-source-url",
+      "https://github.com/azanin/mongo4s/blob/v" + version.value + "€{FILE_PATH}.scala"
+    )
   )
-))
+)
