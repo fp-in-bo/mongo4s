@@ -3,7 +3,6 @@ package dev.fpinbo.mongo4s.fs2
 import cats.effect.ConcurrentEffect
 import cats.implicits._
 import com.mongodb.internal.async.client.AsyncMongoDatabase
-import com.mongodb.reactivestreams.client.{MongoDatabase => JMongoDatabase}
 
 class MongoDatabase[F[_]] private (private val wrapped: AsyncMongoDatabase)(
   implicit F: ConcurrentEffect[F]
@@ -15,6 +14,7 @@ class MongoDatabase[F[_]] private (private val wrapped: AsyncMongoDatabase)(
 }
 
 object MongoDatabase {
-  def apply[F[_]: ConcurrentEffect](wrapped: JMongoDatabase) =
+
+  def apply[F[_]: ConcurrentEffect](wrapped: AsyncMongoDatabase) =
     new MongoDatabase[F](wrapped)
 }

@@ -2,7 +2,7 @@ package dev.fpinbo.mongo4s.reactivestreams
 
 import cats.effect.ConcurrentEffect
 import cats.implicits._
-import com.mongodb.reactivestreams.client.{MongoDatabase => JMongoDatabase}
+import com.mongodb.reactivestreams.client.{ MongoDatabase => JMongoDatabase }
 
 class MongoDatabase[F[_]] private (private val wrapped: JMongoDatabase)(
   implicit F: ConcurrentEffect[F]
@@ -14,6 +14,7 @@ class MongoDatabase[F[_]] private (private val wrapped: JMongoDatabase)(
 }
 
 object MongoDatabase {
+
   def apply[F[_]: ConcurrentEffect](wrapped: JMongoDatabase) =
     new MongoDatabase[F](wrapped)
 }

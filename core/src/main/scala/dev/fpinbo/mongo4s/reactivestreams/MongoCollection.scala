@@ -2,7 +2,7 @@ package dev.fpinbo.mongo4s.reactivestreams
 
 import cats.effect.ConcurrentEffect
 import cats.implicits._
-import com.mongodb.reactivestreams.client.{MongoCollection => JMongoCollection}
+import com.mongodb.reactivestreams.client.{ MongoCollection => JMongoCollection }
 import org.bson.Document
 
 class MongoCollection[F[_]] private (
@@ -12,6 +12,7 @@ class MongoCollection[F[_]] private (
 }
 
 object MongoCollection {
+
   def apply[F[_]: ConcurrentEffect](
     wrapped: JMongoCollection[Document]
   ): MongoCollection[F] =

@@ -1,13 +1,13 @@
-val catsV = "2.0.0"
-val catsEffectV = "2.0.0"
-val fs2V = "2.0.0"
-val log4catsV = "1.0.1"
-val log4jSlf4jImplV = "2.13.2"
-val specs2V = "4.8.1"
-val catsEffectScalaTestV = "0.4.0"
+val catsV                  = "2.1.1"
+val catsEffectV            = "2.1.3"
+val fs2V                   = "2.0.0"
+val log4catsV              = "1.0.1"
+val log4jSlf4jImplV        = "2.13.2"
+val specs2V                = "4.8.1"
+val catsEffectScalaTestV   = "0.4.0"
 val mongoDbReactiveDriverV = "4.0.2"
 
-val kindProjectorV = "0.11.0"
+val kindProjectorV    = "0.11.0"
 val betterMonadicForV = "0.3.1"
 
 // Projects
@@ -44,14 +44,14 @@ lazy val site = project
       micrositeFooterText := None,
       micrositeHighlightTheme := "atom-one-light",
       micrositePalette := Map(
-        "brand-primary" -> "#3e5b95",
+        "brand-primary"   -> "#3e5b95",
         "brand-secondary" -> "#294066",
-        "brand-tertiary" -> "#2d5799",
-        "gray-dark" -> "#49494B",
-        "gray" -> "#7B7B7E",
-        "gray-light" -> "#E5E5E6",
-        "gray-lighter" -> "#F4F3F4",
-        "white-color" -> "#FFFFFF"
+        "brand-tertiary"  -> "#2d5799",
+        "gray-dark"       -> "#49494B",
+        "gray"            -> "#7B7B7E",
+        "gray-light"      -> "#E5E5E6",
+        "gray-lighter"    -> "#F4F3F4",
+        "white-color"     -> "#FFFFFF"
       ),
       micrositeCompilingDocsTool := WithMdoc,
       scalacOptions in Tut --= Seq(
@@ -69,8 +69,8 @@ lazy val site = project
           "code-of-conduct.md",
           "page",
           Map(
-            "title" -> "code of conduct",
-            "section" -> "code of conduct",
+            "title"    -> "code of conduct",
+            "section"  -> "code of conduct",
             "position" -> "100"
           )
         ),
@@ -93,15 +93,15 @@ lazy val commonSettings = Seq(
   ),
   addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForV),
   libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats-core" % catsV,
-    "org.typelevel" %% "cats-effect" % catsEffectV,
-    "co.fs2" %% "fs2-core" % fs2V,
-    "co.fs2" %% "fs2-io" % fs2V,
-    "co.fs2" %% "fs2-reactive-streams" % fs2V,
-    "org.mongodb" % "mongodb-driver-reactivestreams" % mongoDbReactiveDriverV,
-    "io.chrisdavenport" %% "log4cats-slf4j" % log4catsV,
-    "org.apache.logging.log4j" % "log4j-slf4j-impl" % log4jSlf4jImplV % Runtime,
-    "com.codecommit" %% "cats-effect-testing-scalatest" % catsEffectScalaTestV % Test
+    "org.typelevel"            %% "cats-core"                     % catsV,
+    "org.typelevel"            %% "cats-effect"                   % catsEffectV,
+    "co.fs2"                   %% "fs2-core"                      % fs2V,
+    "co.fs2"                   %% "fs2-io"                        % fs2V,
+    "co.fs2"                   %% "fs2-reactive-streams"          % fs2V,
+    "org.mongodb"              % "mongodb-driver-reactivestreams" % mongoDbReactiveDriverV,
+    "io.chrisdavenport"        %% "log4cats-slf4j"                % log4catsV,
+    "org.apache.logging.log4j" % "log4j-slf4j-impl"               % log4jSlf4jImplV % Runtime,
+    "com.codecommit"           %% "cats-effect-testing-scalatest" % catsEffectScalaTestV % Test
   )
 )
 
@@ -119,9 +119,7 @@ inThisBuild(
     ),
     homepage := Some(url("https://github.com/azanin/mongo4s")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-    pomIncludeRepository := { _ =>
-      false
-    },
+    pomIncludeRepository := { _ => false },
     scalacOptions in (Compile, doc) ++= Seq(
       "-groups",
       "-sourcepath",
