@@ -49,7 +49,7 @@ class FindOps[F[_]] private (private val wrapped: AsyncFindIterable[Document])(
                   }
                 }
 
-              wrapped.batchSize(1).batchCursor { (cursor: AsyncBatchCursor[Document], t: Throwable) =>
+              wrapped.batchCursor { (cursor: AsyncBatchCursor[Document], t: Throwable) =>
                 if (cursor == null) enqueue(Some(Left(t)))
                 else { nextData(cursor) }
               }

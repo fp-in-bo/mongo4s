@@ -12,14 +12,12 @@ object Main extends IOApp {
       .default[IO]
       .use(mongoClient =>
         for {
-          db   <- mongoClient.getDatabase("test")
-          coll <- db.getCollection("contributors")
-          _    <- logger.info("Executing a find operation")
-          //         firstDoc <- coll.find.flatMap(_.first)
+          db      <- mongoClient.getDatabase("test")
+          coll    <- db.getCollection("contributors")
+          _       <- logger.info("Executing a find operation")
           findOps <- coll.find
-          allDocs <- findOps.stream.compile.toList
-//          _        <- logger.info("Result:" + firstDoc)
-          _ <- logger.info("Result:" + allDocs)
+          allDocs <- findOps.stream.take(3).compile.toList
+          _       <- logger.info("Result:" + allDocs)
         } yield allDocs
       )
       .as(ExitCode.Success)
