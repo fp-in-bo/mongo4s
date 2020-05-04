@@ -35,12 +35,11 @@ lazy val site = project
     Seq(
       micrositeName := "mongo4s",
       micrositeDescription := "a functional wrapper on mongo driver",
-      micrositeAuthor := "Alessandro Zanin",
-      micrositeGithubOwner := "azanin",
+      micrositeAuthor := "fp-in-bo",
+      micrositeGithubOwner := "fp-in-bo",
       micrositeGithubRepo := "mongo4s",
       micrositeBaseUrl := "/mongo4s",
       micrositeDocumentationUrl := "https://www.javadoc.io/doc/dev.fpinbo/mongo4s_2.12",
-      micrositeGitterChannelUrl := "azanin/libraries", // Feel Free to Set To Something Else
       micrositeFooterText := None,
       micrositeHighlightTheme := "atom-one-light",
       micrositePalette := Map(
@@ -117,7 +116,7 @@ inThisBuild(
         url("https://github.com/azanin")
       )
     ),
-    homepage := Some(url("https://github.com/azanin/mongo4s")),
+    homepage := Some(url("https://github.com/fp-in-bo/mongo4s")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     pomIncludeRepository := { _ => false },
     scalacOptions in (Compile, doc) ++= Seq(
@@ -125,7 +124,7 @@ inThisBuild(
       "-sourcepath",
       (baseDirectory in LocalRootProject).value.getAbsolutePath,
       "-doc-source-url",
-      "https://github.com/azanin/mongo4s/blob/v" + version.value + "€{FILE_PATH}.scala"
+      "https://github.com/fp-in-bo/mongo4s/blob/v" + version.value + "€{FILE_PATH}.scala"
     )
   )
 )
