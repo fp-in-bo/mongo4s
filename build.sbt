@@ -43,13 +43,13 @@ lazy val site = project
       micrositeFooterText := None,
       micrositeHighlightTheme := "atom-one-light",
       micrositePalette := Map(
-        "brand-primary"   -> "#3e5b95",
-        "brand-secondary" -> "#294066",
-        "brand-tertiary"  -> "#2d5799",
-        "gray-dark"       -> "#49494B",
-        "gray"            -> "#7B7B7E",
-        "gray-light"      -> "#E5E5E6",
-        "gray-lighter"    -> "#F4F3F4",
+        "brand-primary"   -> "#4DB33D",
+        "brand-secondary" -> "#3FA037",
+        "brand-tertiary"  -> "#3FA037",
+        "gray-dark"       -> "#3F3E42",
+        "gray"            -> "#C1BEBC",
+        "gray-light"      -> "#E8E7D5",
+        "gray-lighter"    -> "#E8E7D5",
         "white-color"     -> "#FFFFFF"
       ),
       micrositeCompilingDocsTool := WithMdoc,
@@ -109,12 +109,9 @@ inThisBuild(
   List(
     organization := "dev.fpinbo",
     developers := List(
-      Developer(
-        "azanin",
-        "Alessandro Zanin",
-        "ale.zanin90@gmail.com",
-        url("https://github.com/azanin")
-      )
+      Developer("azanin", "Alessandro Zanin", "ale.zanin90@gmail.com", url("https://github.com/azanin")),
+      Developer("al333z", "Alessandro Zoffoli", "alessandro.zoffoli@gmail.com", url("https://github.com/al333z")),
+      Developer("r-tomassetti", "Renato Tomassetti", "r.tomas1989@gmail.com", url("https://github.com/r-tomassetti"))
     ),
     homepage := Some(url("https://github.com/fp-in-bo/mongo4s")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),

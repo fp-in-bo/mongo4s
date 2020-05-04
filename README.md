@@ -25,3 +25,37 @@ libraryDependencies ++= Seq(
   "dev.fpinbo" %% "mongo4s" % "<version>"
 )
 ```
+
+## Local dev
+
+### run tests
+
+- `docker-compose up -d`
+- `sbt test`
+
+### site
+
+- build site
+
+```
+docker run \
+  -v $PWD:/$PWD \
+  -v ~/.sbt:/root/.sbt \
+  -v ~/.ivy2:/root/.ivy2 \
+  -v ~/.m2:/root/.m2 \
+  -v ~/.coursier:/root/.coursier \
+  -w /$PWD \
+  -it k3vin/sbt-java8-jekyll \
+  sbt site/clean site/makeMicrosite
+```
+
+- run at localhost:4000/mongo4s/
+
+```
+docker run \
+  -v $PWD:/$PWD \
+  -w /$PWD/site/target/site \
+  -p 4000:4000 \
+  -it k3vin/sbt-java8-jekyll \
+  jekyll serve -b /mongo4s --host 0.0.0.0
+```
