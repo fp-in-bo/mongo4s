@@ -64,19 +64,20 @@ lazy val site = project
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
       micrositeExtraMdFiles := Map(
+        file("README.md") -> ExtraMdFileConfig(
+          "index.md",
+          "home",
+          Map("section" -> "home", "position" -> "0", "permalink" -> "/")
+        ),
         file("CODE_OF_CONDUCT.md") -> ExtraMdFileConfig(
           "code-of-conduct.md",
           "page",
-          Map(
-            "title"    -> "code of conduct",
-            "section"  -> "code of conduct",
-            "position" -> "100"
-          )
+          Map("title" -> "Code of conduct", "section" -> "code of conduct", "position" -> "100")
         ),
         file("LICENSE") -> ExtraMdFileConfig(
           "license.md",
           "page",
-          Map("title" -> "license", "section" -> "license", "position" -> "101")
+          Map("title" -> "License", "section" -> "license", "position" -> "101")
         )
       )
     )
