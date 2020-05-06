@@ -10,15 +10,9 @@ object Main extends IOApp {
   def run(args: List[String]): IO[ExitCode] =
     MongoClient
       .default[IO]
-      .use(mongoClient =>
-        for {
-          db      <- mongoClient.getDatabase("test")
-          coll    <- db.getCollection("contributors")
-          _       <- logger.info("Executing a find operation")
-          findOps <- coll.find
-          allDocs <- findOps.stream.take(3).compile.toList
-          _       <- logger.info("Result:" + allDocs)
-        } yield allDocs
-      )
+      .use { mongoClient =>
+        val collection = mongoClient.getDatabase("test").getCollection("contributors")
+        collection.find().take(3).compile.toList
+      }
       .as(ExitCode.Success)
 }

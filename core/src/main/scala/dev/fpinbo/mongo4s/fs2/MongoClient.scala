@@ -6,9 +6,7 @@ import com.mongodb.internal.async.client.{ AsyncMongoClient, AsyncMongoClients }
 class MongoClient[F[_]] private (private val wrapper: AsyncMongoClient)(
   implicit F: ConcurrentEffect[F]
 ) {
-
-  def getDatabase(name: String): F[MongoDatabase[F]] =
-    F.delay(MongoDatabase(wrapper.getDatabase(name)))
+  def getDatabase(name: String): MongoDatabase[F] = MongoDatabase(wrapper.getDatabase(name))
 }
 
 object MongoClient {

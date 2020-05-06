@@ -1,16 +1,17 @@
 package dev.fpinbo.mongo4s.fs2
 
 import cats.effect.ConcurrentEffect
-import cats.implicits._
 import com.mongodb.internal.async.client.AsyncMongoDatabase
+import org.mongodb.scala.Document
 
 class MongoDatabase[F[_]] private (private val wrapped: AsyncMongoDatabase)(
   implicit F: ConcurrentEffect[F]
 ) {
 
-  def getCollection(collectionName: String) =
-    F.delay(wrapped.getCollection(collectionName))
-      .map(mc => MongoCollection(mc))
+  def getCollection(collectionName: String): MongoCollection[F] =
+    MongoCollection(
+      wrapped.getCollection(collectionName, classOf[Document])
+    )
 }
 
 object MongoDatabase {
