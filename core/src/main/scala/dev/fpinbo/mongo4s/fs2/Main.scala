@@ -12,7 +12,7 @@ object Main extends IOApp {
       .default[IO]
       .use { mongoClient =>
         val collection = mongoClient.getDatabase("test").getCollection("contributors")
-        collection.find().take(3).compile.toList
+        collection.find().take(3).compile.toList.flatMap(rs => logger.info("results: " + rs))
       }
       .as(ExitCode.Success)
 }
